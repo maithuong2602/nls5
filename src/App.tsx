@@ -405,7 +405,7 @@ function App() {
                         const periods = l.periods || 2;
                         let range = periods === 1 ? `${globalPeriod}` : `${globalPeriod}-${globalPeriod + periods - 1}`;
                         globalPeriod += periods;
-                        htmlContent += `<tr><td class="text-center">${stt++}</td><td>${l.title}</td><td class="text-center">${range}</td><td class="text-center">${periods}</td><td>${l.yccd.join('<br>')}</td><td class="text-center font-bold">${codes}</td></tr>`;
+                        htmlContent += `<tr><td class="text-center">${stt++}</td><td>${l.title}</td><td class="text-center">${range}</td><td class="text-center">${periods}</td><td>${l.yccd.map(y => "- " + y).join('<br>')}</td><td class="text-center font-bold">${codes}</td></tr>`;
                     });
                 });
                 htmlContent += `</tbody></table>`;
