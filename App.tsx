@@ -430,20 +430,12 @@ function App() {
                     <th class="header-cell">Thời điểm</th>
                     <th class="header-cell">Thiết bị dạy học</th>
                     <th class="header-cell">Địa điểm</th>
-                    <th class="header-cell" style="width:30%">Yêu cầu cần đạt (NLS)</th>
+                    <th class="header-cell">NLS Tích hợp</th>
                 </tr></thead><tbody>`;
                 semTopics.forEach(topic => {
                     htmlContent += `<tr><td colspan="7" style="background:#f9fafb; font-weight:bold;">${topic.topic}</td></tr>`;
                     topic.lessons.forEach(l => {
-                        const mappings = l.mappings || {};
-                        const nlsContent = Object.keys(mappings)
-                            .filter(code => mappings[code].selected)
-                            .map(code => {
-                                const reason = mappings[code].reason || '';
-                                return `<div><b>${code}.</b><br/>${reason}</div>`;
-                            })
-                            .join('<div style="margin-top:6px; margin-bottom:6px; border-bottom:1px dashed #e5e7eb;"></div>');
-
+                        const codes = Object.keys(l.mappings || {}).filter(c => l.mappings[c].selected).join(', ');
                         const p = l.periods || 2;
                         let weekDisp = p <= 1 ? `Tuần ${globalWeek}` : `Tuần ${globalWeek}-${globalWeek + p - 1}`;
                         globalWeek += p;
@@ -454,7 +446,7 @@ function App() {
                             <td class="text-center font-bold">${weekDisp}</td>
                             <td>${l.equipment || ''}</td>
                             <td>${l.location || ''}</td>
-                            <td style="text-align:left; font-size:11pt; vertical-align: top;">${nlsContent}</td>
+                            <td class="text-center font-bold">${codes}</td>
                         </tr>`;
                     });
                 });
